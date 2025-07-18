@@ -10,8 +10,9 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-api_key = st.secrets["APIkey"]   # ✅ Correctly load API Key
-genai.configure(api_key=api_key) # ✅ Configure Gemini SDK (no assignment)
+# api_key = st.secrets["APIkey"]  
+api_key= os.getenv("APIkey") 
+genai.configure(api_key=api_key)         # ✅ Configure Gemini SDK (no assignment)
 
 
 
@@ -71,7 +72,7 @@ def user_input(user_question):
 import streamlit as st
 
 st.set_page_config(page_title="📄 PDF Chatbot with Gemini", page_icon="🤖", layout="wide")
-st.title("🤖 PDF Chatbot with Gemini AI")
+st.title("🤖 PDF Informtion Extractor ")
 st.markdown("Upload your PDFs, process them, and chat with your data!")
 
 with st.sidebar:
@@ -91,7 +92,7 @@ with st.sidebar:
         else:
             st.warning("❗ Please upload at least one PDF file.")
 
-st.subheader("💬 Ask Questions from Your Data")
+# st.subheader("💬 Ask Questions from Your Data")
 user_question = st.text_input("Enter your question:")
 
 if st.button("Get Answer"):
