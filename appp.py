@@ -10,8 +10,8 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-api_key = os.getenv("APIkey")   # ✅ Correctly load API Key
-genai.configure(api_key=api_key)  # ✅ Configure Gemini SDK (no assignment)
+api_key = st.secrets["APIkey"]   # ✅ Correctly load API Key
+# genai.configure(api_key=api_key)  # ✅ Configure Gemini SDK (no assignment)
 
 
 
