@@ -5,6 +5,8 @@ pyPDF2
 faiss-cpu
 streamlit
 python-dotenv
+langchain-community
+
 
 # chromadb
 # llama-index
