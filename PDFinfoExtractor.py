@@ -37,9 +37,17 @@ def get_vector_store(text_chunks):
 
 def get_conversational_chain():
     prompt_template='''
-        Answer every question in detail and be precise from the given context , make sure to provide 
-        all the detials related to the given topic. If the answer is not from the from the given context 
-        just tell "Sorry! I dont have enough information". 
+
+        You are an intelligent pdf reader. Your work is to give thr brief answer to the user in a very
+        precise way.
+        Make sure to provide every single detail about the question given by the user if he is asking 
+        for details . 
+        Don't be so random.
+        when the user greets like [hi, hello , hey , hello buddy, hey buddy]. Greet him back in a friendly way
+        and ask him how was your day or how is he doing making tone friendly and professional.
+
+        If the question is not from the from the given context just answer them in a politely way that  
+        "Sorry! I dont have enough information".
 
         context:{context}
         question:{question}
@@ -62,14 +70,17 @@ def user_input(user_question):
     chain= get_conversational_chain()
 
     response= chain(
-        {"input_documents": docs, "question": user_question}, return_only_outputs=True)
+        {"input_documents": docs, 
+         "question": user_question}, 
+         return_only_outputs=True
+         )
 
     print(response)
 
     st.write("Reply: ", response['output_text'])
 
 
-import streamlit as st
+# Streamlit UI
 
 st.set_page_config(page_title="📄 PDF Chatbot with Gemini", page_icon="🤖", layout="wide")
 st.title("🤖 PDF Informtion Extractor ")
@@ -89,18 +100,15 @@ with st.sidebar:
                     st.success("✅ PDFs processed successfully and vector store saved!")
                 else:
                     st.warning("❗ No text extracted from uploaded PDFs.")
-        else:
+        else: 
             st.warning("❗ Please upload at least one PDF file.")
 
 # st.subheader("💬 Ask Questions from Your Data")
 user_question = st.text_input("Enter your question:")
 
-if st.button("Get Answer"):
-    if user_question:
-        with st.spinner("Searching for the answer..."):
-            try:
-                user_input(user_question)
-            except Exception as e:
-                st.error(f"❗ Error: {e}")
-    else:
-        st.warning("❗ Please enter a question.")
+if user_question:   # This will trigger automatically when user presses Enter
+    with st.spinner("Searching for the answer..."):
+        try:
+            user_input(user_question)
+        except Exception as e:
+            st.error(f"❗ Error: {e}")
