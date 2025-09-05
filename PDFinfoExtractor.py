@@ -12,10 +12,10 @@ from dotenv import load_dotenv
 load_dotenv()
 # api_key = st.secrets["APIkey"]   
 api_key= os.getenv("APIkey") 
-genai.configure(api_key=api_key)         # ✅ Configure Gemini SDK (no assignment)
+genai.configure(api_key=api_key)         
 
 
-
+# Extracting text from the PDFs 
 def get_pdf_text(pdf_docs):
     text=""
     for pdf in pdf_docs:
@@ -24,17 +24,20 @@ def get_pdf_text(pdf_docs):
             text+=page.extract_text()
     return text
 
+# Making chunks of PDFs
 def get_text_chunks(text):
     text_splitter= RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=1000)
     chunks= text_splitter.split_text(text)
     return chunks
 
+# Saving the data locally using FAISS vectro db
 def get_vector_store(text_chunks):
     embeddings= GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=api_key)
     vector_store= FAISS.from_texts(text_chunks, embeddings)
     vector_store.save_local("faiss_index")
 
 
+# Making conversational chain 
 def get_conversational_chain():
     prompt_template='''
 
@@ -63,7 +66,7 @@ def get_conversational_chain():
     chain= load_qa_chain(llm=llm, chain_type="stuff", prompt=prompt)
     return chain
 
-
+# fetching data from the vector db as per the user question/query
 def user_input(user_question):
     embeddings= GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=api_key)
 
