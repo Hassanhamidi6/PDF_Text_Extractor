@@ -1,5 +1,8 @@
 # RAG Chatbot
 
+![App Screenshot](screenshot.PNG)
+
+
 A smart chatbot that helps you upload multiple PDFs, extract the text, and ask questions about the content — all in one place!
 
 Upload Multiple PDFs at Once – Seamlessly process batches of documents in one go.
