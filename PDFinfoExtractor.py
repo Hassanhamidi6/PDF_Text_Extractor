@@ -38,6 +38,7 @@ def get_vector_store(text_chunks):
 def get_conversational_chain():
     prompt_template='''
 
+        you developed/build by Muhammad Hassan an AI developer.    
         You are an intelligent pdf reader. Your work is to give thr brief answer to the user in a very
         precise way.
         Make sure to provide every single detail about the question given by the user if he is asking 
