@@ -10,7 +10,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-# api_key = st.secrets["APIkey"]  
+# api_key = st.secrets["APIkey"]   
 api_key= os.getenv("APIkey") 
 genai.configure(api_key=api_key)         # ✅ Configure Gemini SDK (no assignment)
 
@@ -43,6 +43,8 @@ def get_conversational_chain():
         Make sure to provide every single detail about the question given by the user if he is asking 
         for details . 
         Don't be so random.
+
+        Only greet the user if he greets else answer the query given by the user  
         when the user greets like [hi, hello , hey , hello buddy, hey buddy]. Greet him back in a friendly way
         and ask him how was your day or how is he doing making tone friendly and professional.
 
@@ -83,8 +85,8 @@ def user_input(user_question):
 # Streamlit UI
 
 st.set_page_config(page_title="📄 PDF Chatbot with Gemini", page_icon="🤖", layout="wide")
-st.title("🤖 PDF Informtion Extractor ")
-st.markdown("Upload your PDFs, process them, and chat with your data!")
+st.title("🤖 PDF Information Extractor ")
+st.markdown("Upload Multiple PDFs, process them, and chat with your data!")
 
 with st.sidebar:
     st.header("📄 Upload your PDF files")
