@@ -1,5 +1,9 @@
 # RAG Chatbot
 
+## 📸 Demo
+
+Here’s how the app looks in action:
+
 ![App Screenshot](screenshot.PNG)
 
 
